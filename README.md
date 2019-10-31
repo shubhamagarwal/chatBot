@@ -7,3 +7,5 @@ Created using Udemy course
 Run node app.js
 
 Then type query using command line.
+
+search like : weather like in Noida
