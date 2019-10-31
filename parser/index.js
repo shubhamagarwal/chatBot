@@ -5,6 +5,7 @@ const dictionary = require('./dictionary');
 const moment = require('moment');
 
 let getFeel = temp => {
+	temp = temp - 273;
 	if(temp < 5) {
 		return "shivering cold";
 	} else if(temp >= 5 && temp < 15) {
@@ -43,15 +44,18 @@ let getDate = day => {
 }
 
 let currentWeather = response => {
-	if(response.query.results) {
-		let resp = response.query.results.channel;
-		let location = `${resp.location.city}, ${resp.location.country}`;
-		// Access conditions
-		let {text, temp, code} = resp.item.condition; // text = resp.item.condition.text; temp = resp.item.condition.temp;
+	// if(response.query.results) {
+	// 	let resp = response.query.results.channel;
+	// 	let location = `${resp.location.city}, ${resp.location.country}`;
+	// 	// Access conditions
+	// 	let {text, temp, code} = resp.item.condition; // text = resp.item.condition.text; temp = resp.item.condition.temp;
 
-		return `Right now, ${getPrefix(code)} ${text.toLowerCase().red.bold} in ${location.bold}. It is ${getFeel(Number(temp))} at ${temp.red.bold} degrees Celsius.`
-	} else {
-		return "I don't seem to know anything about this place...Sorry :(";
+	// 	return `Right now, ${getPrefix(code)} ${text.toLowerCase().red.bold} in ${location.bold}. It is ${getFeel(Number(temp))} at ${temp.red.bold} degrees Celsius.`
+	// } else {
+	// 	return "I don't seem to know anything about this place...Sorry :(";
+	// }
+	if(response.data) {
+		return `Right now, it's ${response.data.weather[0].description} in ${response.data.name}. It is ${getFeel(Number(response.data.main.temp))}.`
 	}
 }
 

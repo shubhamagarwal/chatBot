@@ -25,9 +25,10 @@ rl.on('line', reply => {
 				process.exit(0);
                 break;
             case 'CurrentWeather':
-                console.log(`Checking weather in ${data.entities.city}`);
+                //console.log(`Checking weather in ${data.entities.city}`);
                 weather(data.entities.city, 'current')
 					.then(response => {
+						//console.log(response.data);
                         let parseResult = currentWeather(response);
 						console.log(parseResult);
 						rl.prompt();
